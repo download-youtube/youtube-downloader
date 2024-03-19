@@ -1,10 +1,210 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youtube mp3 and mp4 downloader</title>
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <style>
+        /*==================== GOOGLE FONTS ====================*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+        body {
+            background: #0e0e10;
+            color: #f7f7f8;
+            transition: background-color 0.5s ease;
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        input,
+        textarea,
+        button,
+        select,
+        a,
+        div,
+        span {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            background-color: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .containerinput {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 35px;
+            width: 100%;
+            position: relative;
+        }
+
+        @media screen and (max-width: 768px) {
+            .input {
+                box-sizing: border-box;
+                width: 80%;
+                position: relative;
+                outline: none;
+                font-size: 14px;
+                font-weight: 500;
+                background-color: #53535f;
+                caret-color: #f7f7f8;
+                color: #fff;
+                padding: 7px 10px;
+                border: 2px solid transparent;
+                border-top-left-radius: 7px;
+                border-bottom-left-radius: 7px;
+                margin-right: 1px;
+                transition: all .2s ease;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .input {
+                box-sizing: border-box;
+                width: 70%;
+                position: relative;
+                outline: none;
+                font-size: 14px;
+                font-weight: 500;
+                background-color: #53535f;
+                caret-color: #f7f7f8;
+                color: #fff;
+                padding: 7px 10px;
+                border: 2px solid transparent;
+                border-top-left-radius: 7px;
+                border-bottom-left-radius: 7px;
+                margin-right: 1px;
+                transition: all .2s ease;
+            }
+        }
+
+        .input:hover {
+            border: 2px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .input:focus {
+            border: 2px solid #a970ff;
+            background-color: #0e0e10;
+        }
+
+        .search__btn {
+            border: none;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+            background-color: rgba(42, 42, 45, 1);
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+            width: 30px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search__btn:hover {
+            background-color: rgba(54, 54, 56, 1);
+        }
+
+        .radio-inputs {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 0.5rem;
+            background-color: #53535fd4;
+            box-sizing: border-box;
+            box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+            height: 30px;
+            font-size: 14px;
+        }
+
+        .radio-inputs .radio {
+            flex: 1 1 auto;
+            padding: 0 10px 0 10px;
+            text-align: center;
+        }
+
+        .radio-inputs .radio input {
+            display: none;
+        }
+
+        .radio-inputs .radio .name {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            border: none;
+            height: 100%;
+            color: #f7f7f8;
+            transition: all .15s ease-in-out;
+        }
+
+        .radio-inputs .radio input:checked + .name {
+            background-color: #53535f;
+            font-weight: 600;
+        }
+
+        .radio-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .mainText {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .textMain {
+            font-size: 30px;
+            font-weight: 600;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .mainText2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .textMain2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-right: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <form action="/download" method="POST" class="main" id="downloadForm">
@@ -15,31 +215,31 @@
         <div class="radio-container">
             <div class="radio-inputs">
                 <label class="radio">
-                  <input type="radio" name="type" value="mp3" id="mp3" checked="">
-                  <span class="name">MP3</span>
+                    <input type="radio" name="type" value="mp3" id="mp3" checked="">
+                    <span class="name">MP3</span>
                 </label>
                 <label class="radio">
-                  <input type="radio" name="type" value="mp4" id="mp4">
-                  <span class="name">MP4</span>
+                    <input type="radio" name="type" value="mp4" id="mp4">
+                    <span class="name">MP4</span>
                 </label>
             </div>
         </div>
         <div class="mainText2">
-          <a class="textMain2">Quality</a>
-      </div>
-      
-      <div class="radio-container" id="mp4quailty">
-        <div class="radio-inputs" >
-          <label class="radio">
-            <input type="radio" name="quality" value="2" id="mp4_2">
-            <span class="name">Lowest Quality</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="quality" value="1" id="mp4_1">
-            <span class="name">Highest Quality</span>
-          </label>
-      </div>
-    </div>
+            <a class="textMain2">Quality</a>
+        </div>
+
+        <div class="radio-container" id="mp4quailty">
+            <div class="radio-inputs">
+                <label class="radio">
+                    <input type="radio" name="quality" value="2" id="mp4_2">
+                    <span class="name">Lowest Quality</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="quality" value="1" id="mp4_1">
+                    <span class="name">Highest Quality</span>
+                </label>
+            </div>
+        </div>
 
         <div class="containerinput">
             <input type="url" name="url" id="url" class="input" placeholder="Enter URL" autofocus>
@@ -49,26 +249,26 @@
         </div>
     </form>
     <script>
-      const form = document.getElementById('downloadForm');
-  
-      form.addEventListener('submit', function (event) {
-          event.preventDefault(); 
-  
-          const selectedType = document.querySelector('input[name="type"]:checked');
-          const selectedQuality = document.querySelector('input[name="quality"]:checked');
-  
-          if (selectedType && selectedQuality) {
-              const formData = {
-                  type: selectedType.value,
-                  quality: selectedQuality.value,
-                  url: form.querySelector('#url').value
-              };
-              form.submit();
-          } else {
-              alert('Please choose a type and quality!');
-          }
-      });
-  </script>
+        const form = document.getElementById('downloadForm');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const selectedType = document.querySelector('input[name="type"]:checked');
+            const selectedQuality = document.querySelector('input[name="quality"]:checked');
+
+            if (selectedType && selectedQuality) {
+                const formData = {
+                    type: selectedType.value,
+                    quality: selectedQuality.value,
+                    url: form.querySelector('#url').value
+                };
+                form.submit();
+            } else {
+                alert('Please choose a type and quality!');
+            }
+        });
+    </script>
     <script>
         // Dynamically change quality options with JavaScript
         const mp4Radio = document.getElementById('mp4');
@@ -87,7 +287,7 @@
 
         // Function to show quality options
         function showQualityOptions() {
-        mp4_1.checked = true;
+            mp4_1.checked = true;
         }
     </script>
 </body>
